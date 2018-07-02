@@ -1,0 +1,57 @@
+﻿<mah:MetroWindow x:Class="SoundG.Views.ShellView"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+                 xmlns:mvvm="http://prismlibrary.com/"
+                 xmlns:models="clr-namespace:SoundG.Models"
+                 xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+                 mc:Ignorable="d"
+                 Title="{Binding Path=Title}"
+                 Height="450" Width="800"
+                 BorderBrush="{DynamicResource AccentColorBrush}"
+                 BorderThickness="1"
+                 mah:ControlsHelper.ContentCharacterCasing="Normal"
+                 TitleCharacterCasing="Normal"
+                 WindowStartupLocation="CenterScreen"
+                 mvvm:ViewModelLocator.AutoWireViewModel="True"
+                 x:ClassModifier="internal">
+    <Grid>
+        <Grid.Resources>
+            <Style x:Key="MetroDataGridColumnHeader"
+                   TargetType="{x:Type DataGridColumnHeader}">
+
+            </Style>
+        </Grid.Resources>
+        <!--<materialDesign:Card Margin="5" Padding="5">
+            <StackPanel Orientation="Vertical">
+                <TextBox IsReadOnly="True" Text="Url" Margin="2" />
+                <TextBox IsReadOnly="True" Text="Url" Margin="2" />
+                <TextBox IsReadOnly="True" Text="Url" Margin="2" />
+                <TextBox IsReadOnly="True" Text="Url" Margin="2" />
+            </StackPanel>
+        </materialDesign:Card>-->
+
+        <DataGrid ItemsSource="{Binding Path=Sounds}"
+                  AutoGenerateColumns="False"
+                  AlternatingRowBackground="AntiqueWhite"
+                  FrozenColumnCount="1"
+                  CanUserAddRows="False"
+                  ColumnHeaderStyle="{StaticResource MetroDataGridColumnHeader}"
+                  CanUserDeleteRows="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="#ID"
+                                    Binding="{Binding Path=Id}"
+                                    Width="50"
+                                    CanUserResize="False"
+                                    CanUserReorder="False" />
+
+                <DataGridTextColumn Header="PLAY COUNT" Binding="{Binding Path=PlayCount}" Width="100"/>
+                <DataGridTextColumn Header="TITLE" Binding="{Binding Path=Title}" Width="100" />
+                <DataGridTextColumn Header="DESCRIPTION" Binding="{Binding Path=Description}" Width="100" />
+                <DataGridHyperlinkColumn Header="URL" Binding="{Binding Path=Url}" Width="100" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</mah:MetroWindow>
