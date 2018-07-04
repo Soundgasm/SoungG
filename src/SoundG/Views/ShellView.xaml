@@ -11,47 +11,103 @@
                  Title="{Binding Path=Title}"
                  Height="450" Width="800"
                  BorderBrush="{DynamicResource AccentColorBrush}"
-                 BorderThickness="1"
+                 BorderThickness="2"
                  mah:ControlsHelper.ContentCharacterCasing="Normal"
                  TitleCharacterCasing="Normal"
                  WindowStartupLocation="CenterScreen"
                  mvvm:ViewModelLocator.AutoWireViewModel="True"
-                 x:ClassModifier="internal">
+                 x:ClassModifier="internal"
+                 Topmost="True">
     <Grid>
-        <Grid.Resources>
-            <Style x:Key="MetroDataGridColumnHeader"
-                   TargetType="{x:Type DataGridColumnHeader}">
-
-            </Style>
-        </Grid.Resources>
-        <!--<materialDesign:Card Margin="5" Padding="5">
-            <StackPanel Orientation="Vertical">
-                <TextBox IsReadOnly="True" Text="Url" Margin="2" />
-                <TextBox IsReadOnly="True" Text="Url" Margin="2" />
-                <TextBox IsReadOnly="True" Text="Url" Margin="2" />
-                <TextBox IsReadOnly="True" Text="Url" Margin="2" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <TextBox Grid.Row="0"
+                 Grid.Column="0"
+                 Margin="5"
+                 Text="SOmething very long url"
+                 VerticalContentAlignment="Center" />
+        <Button Grid.Row="0"
+                Grid.Column="1"
+                Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
+                Margin="5" />
+        <GroupBox Grid.Row="1"
+                  Grid.Column="0"
+                  Grid.ColumnSpan="2"
+                  Header="Order By">
+            <StackPanel Orientation="Horizontal">
+                <RadioButton Content="Id" Margin="4" />
+                <RadioButton Content="View Count" Margin="4" />
+                <RadioButton Content="Title" Margin="4" />
             </StackPanel>
-        </materialDesign:Card>-->
-
-        <DataGrid ItemsSource="{Binding Path=Sounds}"
-                  AutoGenerateColumns="False"
-                  AlternatingRowBackground="AntiqueWhite"
-                  FrozenColumnCount="1"
-                  CanUserAddRows="False"
-                  ColumnHeaderStyle="{StaticResource MetroDataGridColumnHeader}"
-                  CanUserDeleteRows="False">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="#ID"
-                                    Binding="{Binding Path=Id}"
-                                    Width="50"
-                                    CanUserResize="False"
-                                    CanUserReorder="False" />
-
-                <DataGridTextColumn Header="PLAY COUNT" Binding="{Binding Path=PlayCount}" Width="100"/>
-                <DataGridTextColumn Header="TITLE" Binding="{Binding Path=Title}" Width="100" />
-                <DataGridTextColumn Header="DESCRIPTION" Binding="{Binding Path=Description}" Width="100" />
-                <DataGridHyperlinkColumn Header="URL" Binding="{Binding Path=Url}" Width="100" />
-            </DataGrid.Columns>
-        </DataGrid>
+        </GroupBox>
+        <ScrollViewer Grid.Row="2"
+                      Grid.Column="0"
+                      Grid.ColumnSpan="2"
+                      Margin="4">
+            <ItemsControl ItemsSource="{Binding Path=Sounds}"
+                          Margin="4">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type models:Sound}">
+                        <materialDesign:Card Margin="2"
+                                             Padding="0"
+                                             x:Name="card"
+                                             materialDesign:ShadowAssist.ShadowDepth="Depth0">
+                            <!--<Button Height="Auto"
+                                    HorizontalContentAlignment="Left">-->
+                            <Grid Margin="5">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Border Grid.Row="0"
+                                        Grid.Column="0"
+                                        Grid.RowSpan="3"
+                                        BorderBrush="Black"
+                                        BorderThickness="0 0 1 0"
+                                        Margin="0 0 5 0">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Grid.Row="0"
+                                                   HorizontalAlignment="Center"
+                                                   Text="{Binding Path=Id}" />
+                                        <TextBlock Grid.Row="1"
+                                                   HorizontalAlignment="Center"
+                                                   FontSize="18"
+                                                   Text="{Binding Path=PlayCount}" />
+                                    </Grid>
+                                </Border>
+                                <TextBlock Grid.Row="0"
+                                           Grid.Column="1"
+                                           Text="{Binding Path=Title}"
+                                           TextWrapping="Wrap" />
+                                <TextBlock Grid.Row="1"
+                                           Grid.Column="1"
+                                           Text="{Binding Path=Description}"
+                                           TextWrapping="Wrap" />
+                                <TextBlock Grid.Row="2"
+                                           Grid.Column="1"
+                                           Text="{Binding Path=Url}" />
+                            </Grid>
+                            <!--</Button>-->
+                        </materialDesign:Card>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
     </Grid>
 </mah:MetroWindow>
